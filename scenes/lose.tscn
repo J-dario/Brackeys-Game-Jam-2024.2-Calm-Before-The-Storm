@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3sa4de6tpvmb"]
+
+[ext_resource type="Script" path="res://lose.gd" id="1_afnr0"]
+[ext_resource type="Texture2D" uid="uid://dg51oritktqfu" path="res://assets/Lose.png" id="2_r270k"]
+[ext_resource type="FontFile" uid="uid://lj1125yule6q" path="res://assets/A Goblin Appears!.otf" id="3_x7q6d"]
+[ext_resource type="AudioStream" uid="uid://bx7rg10a5g4ro" path="res://assets/audio/fluorescent-lightbulb-break-37391.mp3" id="4_okfup"]
+
+[node name="Lose" type="Node2D"]
+script = ExtResource("1_afnr0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("2_r270k")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 9.0
+offset_right = 435.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("3_x7q6d")
+theme_override_font_sizes/font_size = 19
+text = "You Couldn't Calm Down..."
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 18.0
+offset_top = 39.0
+offset_right = 96.0
+offset_bottom = 62.0
+theme_override_fonts/font = ExtResource("3_x7q6d")
+theme_override_font_sizes/font_size = 11
+text = "End Gold: 234"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 9.0
+offset_top = 325.0
+offset_right = 224.0
+offset_bottom = 350.0
+theme_override_fonts/font = ExtResource("3_x7q6d")
+theme_override_font_sizes/font_size = 17
+text = "Back To Menu"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_okfup")
+volume_db = -2.882
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

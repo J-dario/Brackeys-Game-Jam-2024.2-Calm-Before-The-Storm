@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvd4mb6iyvd0d"]
+
+[ext_resource type="Texture2D" uid="uid://cve1nsmwlvmuc" path="res://assets/Keys.png" id="1_hakyl"]
+
+[node name="Keys" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hakyl")
+region_enabled = true
+region_rect = Rect2(0, 0, 22, 22)

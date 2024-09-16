@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://dah453lgf6qjm"]
+
+[ext_resource type="Texture2D" uid="uid://guxux1jwivwr" path="res://assets/Window.png" id="1_0pnue"]
+[ext_resource type="Script" path="res://scenes/breathe.gd" id="1_mavhc"]
+[ext_resource type="Texture2D" uid="uid://ddyjuhhc8wyyd" path="res://assets/Breathe.png" id="2_x78cp"]
+[ext_resource type="FontFile" uid="uid://cpnmhuno0hbte" path="res://assets/PixelOperator8-Bold.ttf" id="3_syx6t"]
+[ext_resource type="Texture2D" uid="uid://cve1nsmwlvmuc" path="res://assets/Keys.png" id="4_1ujem"]
+[ext_resource type="AudioStream" uid="uid://crxaf4qgqgt4w" path="res://assets/audio/hitHurt (1).wav" id="6_mjamy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj3nb"]
+bg_color = Color(0.129412, 0.129412, 0.137255, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eevq3"]
+bg_color = Color(0.415686, 0.32549, 0.431373, 1)
+border_color = Color(0.94902, 0.941176, 0.898039, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Breathe" type="Node2D"]
+script = ExtResource("1_mavhc")
+
+[node name="Window" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("1_0pnue")
+
+[node name="Breath" type="Sprite2D" parent="."]
+position = Vector2(188, 181)
+texture = ExtResource("2_x78cp")
+region_enabled = true
+region_rect = Rect2(223, 0, 223, 164)
+
+[node name="Instrructions" type="Label" parent="."]
+offset_left = 344.0
+offset_top = 107.0
+offset_right = 558.0
+offset_bottom = 142.0
+theme_override_fonts/font = ExtResource("3_syx6t")
+theme_override_font_sizes/font_size = 16
+text = "Deep Breaths
+
+Breathe In"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 344.0
+offset_top = 150.0
+offset_right = 559.0
+offset_bottom = 185.0
+theme_override_fonts/font = ExtResource("3_syx6t")
+theme_override_font_sizes/font_size = 8
+text = "
+(Hit The Keys In Order)
+"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 346.0
+offset_top = 227.0
+offset_right = 556.0
+offset_bottom = 254.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hj3nb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_eevq3")
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ProgressBar"]
+autostart = true
+
+[node name="Key1" type="Sprite2D" parent="."]
+position = Vector2(390, 198)
+texture = ExtResource("4_1ujem")
+region_enabled = true
+region_rect = Rect2(0, 0, 22, 22)
+
+[node name="Key2" type="Sprite2D" parent="."]
+position = Vector2(453, 198)
+texture = ExtResource("4_1ujem")
+region_enabled = true
+region_rect = Rect2(0, 0, 22, 22)
+
+[node name="Key3" type="Sprite2D" parent="."]
+position = Vector2(513, 198)
+texture = ExtResource("4_1ujem")
+region_enabled = true
+region_rect = Rect2(0, 0, 22, 22)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_mjamy")
+volume_db = -5.0
+
+[connection signal="timeout" from="ProgressBar/Timer" to="." method="_on_timer_timeout"]

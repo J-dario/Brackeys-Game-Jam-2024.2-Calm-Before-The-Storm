@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://d3b8jovyph76i"]
+
+[ext_resource type="Script" path="res://scripts/fist.gd" id="1_cbj7e"]
+[ext_resource type="Texture2D" uid="uid://cm6bci6k30exh" path="res://assets/Fist.png" id="2_qxywb"]
+[ext_resource type="FontFile" uid="uid://cpnmhuno0hbte" path="res://assets/PixelOperator8-Bold.ttf" id="3_7d82s"]
+[ext_resource type="Texture2D" uid="uid://bkl1017lwexpp" path="res://assets/Space.png" id="4_rh26d"]
+[ext_resource type="AudioStream" uid="uid://crxaf4qgqgt4w" path="res://assets/audio/hitHurt (1).wav" id="5_8bejc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xf4v0"]
+bg_color = Color(0.129412, 0.129412, 0.137255, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hamsn"]
+bg_color = Color(0.415686, 0.32549, 0.431373, 1)
+border_color = Color(0.94902, 0.941176, 0.898039, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Fist" type="Node2D"]
+script = ExtResource("1_cbj7e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("2_qxywb")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 344.0
+offset_top = 107.0
+offset_right = 558.0
+offset_bottom = 142.0
+theme_override_fonts/font = ExtResource("3_7d82s")
+theme_override_font_sizes/font_size = 16
+text = "Don't Hit 
+The Table!
+"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 345.0
+offset_top = 152.0
+offset_right = 560.0
+offset_bottom = 187.0
+theme_override_fonts/font = ExtResource("3_7d82s")
+theme_override_font_sizes/font_size = 8
+text = "Spam SPACE to hesitate
+"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 346.0
+offset_top = 227.0
+offset_right = 556.0
+offset_bottom = 254.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xf4v0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hamsn")
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ProgressBar"]
+autostart = true
+
+[node name="ProgressBar2" type="ProgressBar" parent="."]
+offset_left = 247.0
+offset_top = 110.0
+offset_right = 289.0
+offset_bottom = 235.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xf4v0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hamsn")
+fill_mode = 3
+show_percentage = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(451, 195)
+texture = ExtResource("4_rh26d")
+region_enabled = true
+region_rect = Rect2(0, 0, 203, 39)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8bejc")
+volume_db = -5.0
+
+[connection signal="timeout" from="ProgressBar/Timer" to="." method="_on_timer_timeout"]

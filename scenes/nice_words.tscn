@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=3 uid="uid://let613uivk1y"]
+
+[ext_resource type="Script" path="res://scripts/nice_words.gd" id="1_fwvac"]
+[ext_resource type="Texture2D" uid="uid://bctrhrb0o7d1v" path="res://assets/NiceWords.png" id="2_j3hi0"]
+[ext_resource type="FontFile" uid="uid://cpnmhuno0hbte" path="res://assets/PixelOperator8-Bold.ttf" id="3_l2hgb"]
+[ext_resource type="AudioStream" uid="uid://crxaf4qgqgt4w" path="res://assets/audio/hitHurt (1).wav" id="4_8n0qq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utlbd"]
+bg_color = Color(0.129412, 0.129412, 0.137255, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dht4h"]
+bg_color = Color(0.415686, 0.32549, 0.431373, 1)
+border_color = Color(0.94902, 0.941176, 0.898039, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="NiceWords" type="Node2D"]
+script = ExtResource("1_fwvac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("2_j3hi0")
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 319.0
+offset_top = 108.0
+offset_right = 592.0
+offset_bottom = 167.0
+theme_override_colors/font_color = Color(0.94902, 0.941176, 0.898039, 1)
+theme_override_fonts/font = ExtResource("3_l2hgb")
+theme_override_font_sizes/font_size = 16
+text = "Say Something 
+Nice!"
+horizontal_alignment = 1
+
+[node name="Prompt" type="Label" parent="."]
+offset_left = 115.0
+offset_top = 158.0
+offset_right = 267.0
+offset_bottom = 212.0
+theme_override_colors/font_color = Color(0.129412, 0.129412, 0.137255, 1)
+theme_override_fonts/font = ExtResource("3_l2hgb")
+text = "AAAAAAAAA
+AAAAAA"
+horizontal_alignment = 1
+
+[node name="Option1" type="Button" parent="."]
+offset_left = 347.0
+offset_top = 148.0
+offset_right = 452.0
+offset_bottom = 220.0
+theme_override_fonts/font = ExtResource("3_l2hgb")
+theme_override_font_sizes/font_size = 8
+text = "**** **
+
+******
+
+******* ****"
+
+[node name="Option2" type="Button" parent="."]
+offset_left = 455.0
+offset_top = 148.0
+offset_right = 557.0
+offset_bottom = 220.0
+theme_override_fonts/font = ExtResource("3_l2hgb")
+theme_override_font_sizes/font_size = 8
+text = "I'm calm :D"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 346.0
+offset_top = 227.0
+offset_right = 556.0
+offset_bottom = 254.0
+theme_override_styles/background = SubResource("StyleBoxFlat_utlbd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dht4h")
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ProgressBar"]
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_8n0qq")
+volume_db = -5.0
+
+[connection signal="pressed" from="Option1" to="." method="_on_option_1_pressed"]
+[connection signal="pressed" from="Option2" to="." method="_on_option_2_pressed"]
+[connection signal="timeout" from="ProgressBar/Timer" to="." method="_on_timer_timeout"]

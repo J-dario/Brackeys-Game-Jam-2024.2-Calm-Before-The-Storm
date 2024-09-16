@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqrqkp0lbppjy"]
+
+[ext_resource type="Script" path="res://scenes/mantra.gd" id="1_867bl"]
+[ext_resource type="Texture2D" uid="uid://d2imhl5g2uteg" path="res://assets/Mantra.png" id="1_c512e"]
+[ext_resource type="FontFile" uid="uid://cpnmhuno0hbte" path="res://assets/PixelOperator8-Bold.ttf" id="2_3a5ji"]
+[ext_resource type="FontFile" uid="uid://b3ra6ows1usnq" path="res://assets/PixelOperator8.ttf" id="3_q5txa"]
+[ext_resource type="Texture2D" uid="uid://cve1nsmwlvmuc" path="res://assets/Keys.png" id="4_ibf53"]
+[ext_resource type="AudioStream" uid="uid://crxaf4qgqgt4w" path="res://assets/audio/hitHurt (1).wav" id="6_ptxwe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m32io"]
+bg_color = Color(0.129412, 0.129412, 0.137255, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kd06s"]
+bg_color = Color(0.415686, 0.32549, 0.431373, 1)
+border_color = Color(0.94902, 0.941176, 0.898039, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Mantra" type="Node2D"]
+script = ExtResource("1_867bl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("1_c512e")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 346.0
+offset_top = 227.0
+offset_right = 556.0
+offset_bottom = 254.0
+theme_override_styles/background = SubResource("StyleBoxFlat_m32io")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kd06s")
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ProgressBar"]
+autostart = true
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 47.0
+offset_top = 117.0
+offset_right = 331.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(0.129412, 0.129412, 0.137255, 1)
+theme_override_fonts/font = ExtResource("2_3a5ji")
+text = "Happy Thoughts
+
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 59.0
+offset_top = 156.0
+offset_right = 313.0
+offset_bottom = 191.0
+theme_override_colors/font_color = Color(0.129412, 0.129412, 0.137255, 1)
+theme_override_fonts/font = ExtResource("2_3a5ji")
+theme_override_font_sizes/font_size = 16
+text = "Complete The 
+Mantra"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 92.0
+offset_top = 213.0
+offset_right = 282.0
+offset_bottom = 236.0
+theme_override_colors/font_color = Color(0.129412, 0.129412, 0.137255, 1)
+theme_override_fonts/font = ExtResource("3_q5txa")
+text = "- --- - -- -"
+horizontal_alignment = 1
+
+[node name="Left" type="Label" parent="."]
+offset_left = 347.0
+offset_top = 170.0
+offset_right = 411.0
+offset_bottom = 193.0
+theme_override_fonts/font = ExtResource("2_3a5ji")
+text = "Take"
+horizontal_alignment = 1
+
+[node name="key3" type="Sprite2D" parent="Left"]
+position = Vector2(29, 32)
+texture = ExtResource("4_ibf53")
+region_enabled = true
+region_rect = Rect2(0, 0, 22, 22)
+
+[node name="Up" type="Label" parent="."]
+offset_left = 407.0
+offset_top = 112.0
+offset_right = 496.0
+offset_bottom = 135.0
+theme_override_fonts/font = ExtResource("2_3a5ji")
+text = "It"
+horizontal_alignment = 1
+
+[node name="key1" type="Sprite2D" parent="Up"]
+position = Vector2(44, 32)
+texture = ExtResource("4_ibf53")
+region_enabled = true
+region_rect = Rect2(0, 0, 22, 22)
+
+[node name="Right" type="Label" parent="."]
+offset_left = 493.0
+offset_top = 170.0
+offset_right = 557.0
+offset_bottom = 193.0
+theme_override_fonts/font = ExtResource("2_3a5ji")
+text = "Easy"
+horizontal_alignment = 1
+
+[node name="key2" type="Sprite2D" parent="Right"]
+position = Vector2(30, 32)
+texture = ExtResource("4_ibf53")
+region_enabled = true
+region_rect = Rect2(0, 0, 22, 22)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ptxwe")
+volume_db = -5.0
+
+[connection signal="timeout" from="ProgressBar/Timer" to="." method="_on_timer_timeout"]

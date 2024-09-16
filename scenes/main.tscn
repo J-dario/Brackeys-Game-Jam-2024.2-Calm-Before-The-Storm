@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3 uid="uid://eb2emk3j2ykq"]
+
+[ext_resource type="Texture2D" uid="uid://chn1m76i4pbyo" path="res://assets/BG.png" id="1_i8i3k"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_la6ut"]
+[ext_resource type="PackedScene" uid="uid://d1rfwaqwy1asf" path="res://scenes/strikes.tscn" id="2_cfnsu"]
+[ext_resource type="FontFile" uid="uid://lj1125yule6q" path="res://assets/A Goblin Appears!.otf" id="3_d6ve4"]
+[ext_resource type="Texture2D" uid="uid://dyb10nqlnvrsx" path="res://assets/Lee.png" id="5_6nfbg"]
+[ext_resource type="AudioStream" uid="uid://c4x336sdm0r6c" path="res://assets/audio/retro-game-arcade-236133.mp3" id="6_tl7wl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wa6bk"]
+bg_color = Color(0.705882, 0.321569, 0.321569, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cldgo"]
+bg_color = Color(0.827451, 0.627451, 0.407843, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Animation" id="Animation_o14wh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(545, 243)]
+}
+
+[sub_resource type="Animation" id="Animation_2qipo"]
+resource_name = "lee"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show"
+}, {
+"args": [],
+"method": &"hide"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(545, 243), Vector2(518, 243), Vector2(518, 243), Vector2(545, 243)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cfyya"]
+_data = {
+"RESET": SubResource("Animation_o14wh"),
+"lee": SubResource("Animation_2qipo")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_la6ut")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("1_i8i3k")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 206.0
+offset_top = 59.0
+offset_right = 286.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.827451, 0.627451, 0.407843, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_d6ve4")
+theme_override_font_sizes/font_size = 14
+text = "Gold: 0"
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(378, 224)
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(461, 198)
+
+[node name="Marker2D3" type="Marker2D" parent="."]
+position = Vector2(509, 140)
+
+[node name="Strikes" parent="." instance=ExtResource("2_cfnsu")]
+position = Vector2(121, 80)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 10)
+offset_left = 288.0
+offset_top = 266.0
+offset_right = 467.0
+offset_bottom = 280.0
+theme_override_styles/background = SubResource("StyleBoxFlat_wa6bk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cldgo")
+value = 100.0
+show_percentage = false
+
+[node name="WaveTimer" type="Timer" parent="ProgressBar"]
+wait_time = 0.25
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(545, 243)
+texture = ExtResource("5_6nfbg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_cfyya")
+}
+
+[node name="Timer" type="Timer" parent="Sprite2D"]
+wait_time = 0.7
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_tl7wl")
+volume_db = -22.544
+autoplay = true
+
+[connection signal="timeout" from="ProgressBar/WaveTimer" to="." method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="Sprite2D/Timer" to="." method="_on_timer_timeout"]
